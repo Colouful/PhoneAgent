@@ -106,6 +106,29 @@ cd agent-core && swift test
 
 `agent-core/` 不等于完整 iOS App，也不表示 ESP32 已完成集成。
 
+
+## GitHub 工作项
+
+M0 / M1 / 后续里程碑已拆为 16 个可执行 Issues：
+- [PA-001 上游版本固定与审计](https://github.com/Colouful/PhoneAgent/issues/1)
+- [PA-002 ESP32 固件编译与烧录](https://github.com/Colouful/PhoneAgent/issues/2)
+- [PA-003 iPhone USB HID](https://github.com/Colouful/PhoneAgent/issues/3)
+- [PA-004 BLE GATT](https://github.com/Colouful/PhoneAgent/issues/4)
+- [PA-005 AirPlay / H.264 / VideoToolbox](https://github.com/Colouful/PhoneAgent/issues/5)
+- [PA-006 iOS 真机安装与云模型](https://github.com/Colouful/PhoneAgent/issues/6)
+- [PA-007 Action Contract](https://github.com/Colouful/PhoneAgent/issues/7)
+- [PA-008 Agent 单动作闭环](https://github.com/Colouful/PhoneAgent/issues/8)
+- [PA-009 安全确认与 Stop](https://github.com/Colouful/PhoneAgent/issues/9)
+- [PA-010 Keychain 与数据保护](https://github.com/Colouful/PhoneAgent/issues/10)
+- [PA-011 稳定性与故障注入](https://github.com/Colouful/PhoneAgent/issues/11)
+- [PA-012 中文输入](https://github.com/Colouful/PhoneAgent/issues/12)
+- [PA-013 横屏坐标](https://github.com/Colouful/PhoneAgent/issues/13)
+- [PA-014 实体急停](https://github.com/Colouful/PhoneAgent/issues/14)
+- [PA-015 Android 屏幕捕获 POC](https://github.com/Colouful/PhoneAgent/issues/15)
+- [PA-016 Android Action Adapter](https://github.com/Colouful/PhoneAgent/issues/16)
+
+其他 AI 编程代理先读 `AGENTS.md` 和 `PROMPT_FOR_OTHER_AI.zh-CN.md`，然后从 PA-001 / M0 开始。未通过 M0 不要重构上游底层模块。
+
 ## GitHub 工作流
 
 主仓库已创建：<https://github.com/Colouful/PhoneAgent>。当前交付内容由维护者提交至 `main`。日后本地克隆后按 `CONTRIBUTING.md` 创建功能分支、运行测试并提交 PR。禁止强推覆盖远端历史。
