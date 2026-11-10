@@ -13,8 +13,8 @@
 | iOS version + build | iOS 27.3（用户 2026-11-10 确认；build 号待真机核对） |
 | macOS version | **macOS 27.0.1（Build 26A434）**，用户 2026-11-10 实测 `sw_vers`，退出码 0；本执行机为 Ubuntu 24.04.5 LTS VM，无 macOS |
 | Xcode version | **Xcode 27.2（Build 27B52）**，用户 2026-11-10 实测 `xcodebuild -version`，退出码 0；命令行工具路径正常，无需 `xcode-select --install` |
-| XcodeGen version | 待 Mac 侧确认（`brew install xcodegen` 后回填） |
-| Arduino CLI version | **1.5.1**（Commit 01f3d4f2b，2026-06-05；本机 `~/workspace/.local/bin/arduino-cli`，官方 install.sh 安装） |
+| XcodeGen version | **2.46.0**（Mac，2026-11-10 用户实测 `xcodegen --version`；`/Users/admin/.local/bin/xcodegen`，官方预编译包直装，无 Homebrew；最小 iOS 工程 `xcodegen generate` 冒烟测试通过） |
+| Arduino CLI version | **1.5.1**（Commit 01f3d4f2b；Linux 执行机 `~/workspace/.local/bin/arduino-cli`，官方 install.sh 安装；Mac 侧同为 1.5.1，`/Users/admin/.local/bin/arduino-cli`，官方 macOS ARM64 tarball 直装，用户 2026-11-10 实测） |
 | ESP32 Arduino Core exact version | **3.3.12**（上游 CI `.github/workflows/ci.yml` firmware job 固定值） |
 | NimBLE-Arduino version | **2.5.1**（上游 README + CI） |
 | Upstream commit SHA | **92b472fe0d46e0e8802c67915d20b236d145ab0e**（2026-11-09，`fix(ios): remove the saved key when the user clears the API key (#137)`；固件 FW 0.2.4） |

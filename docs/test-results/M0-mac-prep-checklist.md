@@ -7,14 +7,11 @@
 ## 1. 先报版本号（发回给我，我写入 M0-baseline）
 
 - [x] 2026-11-10 已确认：macOS 27.0.1（26A434）、Xcode 27.2（27B52），两条命令退出码均为 0，命令行工具路径正常。
-- [ ] 待确认：XcodeGen、arduino-cli 版本。
+- [x] 2026-11-10 已确认：XcodeGen **2.46.0**、arduino-cli **1.5.1**（Commit 01f3d4f2b）。两条命令就是本节原来写的 `xcodegen --version` 和 `arduino-cli version`，你的理解是对的。
 
-在 Mac 终端跑：
+安装方式备注（Mac 实测）：本机没有 Homebrew（`/opt/homebrew`、`/usr/local` 均无），改用官方预编译包直装到 `~/.local/bin`（已在 PATH，无需 sudo）；XcodeGen 为 macOS 通用 zip，arduino-cli 为 macOS_ARM64 tarball。安装中两次命令被环境安全策略终止（退出码 137、无输出），改单步复制后正常。另做了一次冒烟测试：最小 iOS 工程 `xcodegen generate` 成功生成 `.xcodeproj`，SettingPresets 路径（`~/.local/share/xcodegen/SettingPresets`）正确。
 
-```bash
-xcodegen --version 2>/dev/null || echo "XcodeGen not installed"
-arduino-cli version 2>/dev/null || echo "arduino-cli not installed"
-```
+> 清单文件位置：这份清单不在 Desktop 上，它在 PhoneAgent 仓库里：`docs/test-results/M0-mac-prep-checklist.md`，分支 `feat/pa-001-pin-upstream-m0-audit`（PR #17）。在线看：https://github.com/Colouful/PhoneAgent/blob/feat/pa-001-pin-upstream-m0-audit/docs/test-results/M0-mac-prep-checklist.md
 
 ## 2. Xcode + XcodeGen
 
