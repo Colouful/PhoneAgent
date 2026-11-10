@@ -1,0 +1,67 @@
+protocol: phoneagent-upstream-compatible-v1
+roles:
+  peripheral: ESP32-S3
+  central: iOS Agent App
+service:
+  uuid: 6e400001-a9e8-4b1b-9c39-6d6f8a3c0000
+  security:
+    pairing: LE Secure Connections
+    bonding: true
+    net_requires_encrypted_link: true
+  characteristics:
+    - name: cmd
+      uuid: 6e400001-a9e8-4b1b-9c39-6d6f8a3c0001
+      properties: [write, write-without-response]
+      value: "<decimal_id> <utf8_command>"
+    - name: reply
+      uuid: 6e400001-a9e8-4b1b-9c39-6d6f8a3c0002
+      properties: [notify]
+      value: "<id> ok | <id> err <reason>"
+    - name: status
+      uuid: 6e400001-a9e8-4b1b-9c39-6d6f8a3c0003
+      properties: [notify, read]
+      cadence_hz: 1
+      format: json
+    - name: video
+      uuid: 6e400001-a9e8-4b1b-9c39-6d6f8a3c0004
+      properties: [notify]
+      framing:
+        seq: uint16-le
+        flags: uint8
+        payload: bytes
+      flags:
+        start: 0
+        end: 1
+        idr: 2
+        config: 3
+        bench: 4
+        snap: 5
+      first_start_payload_prefix: uint32-le-board-ms-timestamp
+      codec: h264-annex-b
+    - name: net
+      uuid: 6e400001-a9e8-4b1b-9c39-6d6f8a3c0005
+      properties: [read, write]
+      encrypted: true
+      format: json
+commands:
+  - ping
+  - home
+  - "move DX DY"
+  - press
+  - release
+  - click
+  - "scroll A B"
+  - "type TEXT"
+  - "key COMBO"
+  - "stream on|off"
+  - snap
+  - "res W H"
+  - "fps N"
+  - "bench KB"
+  - unpair
+  - "coex [bt|balance|wifi]"
+notes:
+  - Exact compatibility source: https://github.com/onehumanbeing/esp32-iphone-agent/blob/main/docs/ble-protocol.md
+  - Negotiate MTU; video payload limit is MTU - 6 bytes (3-byte ATT overhead + 3-byte app header).
+  - On sequence gap, drop incomplete AU and wait for CONFIG/IDR.
+  - On BLE disconnect, release all HID buttons and keys.
