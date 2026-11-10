@@ -1,0 +1,19 @@
+PhoneAgent V1 starter kit validation
+Date: 2026-11-10
+
+Passed in the available development runtime:
+- schemas/phone-action.schema.json parsed successfully with Python json.
+- protocols/ble-gatt.yaml structural key check passed.
+- agent-core Swift Package built and ran on Linux / Swift 6.2.1.
+- 10 ActionValidator unit tests passed, including exact-action confirmation binding, emergency-stop gating, local policy override, swipe duration and scroll validation.
+- scripts/publish-to-github.sh passed bash -n syntax validation.
+- starter-kit ZIP integrity was checked before publication.
+
+Not tested:
+- ESP32 Arduino firmware compilation or flashing (requires target board/toolchain and upstream checkout).
+- iOS Xcode project build/signing (requires macOS + Xcode + Apple signing setup).
+- USB HID on a physical iPhone.
+- BLE GATT / AirPlay / H.264 throughput on physical hardware.
+- Any cloud Vision API provider.
+
+This is an engineering handoff scaffold, not a complete flashable firmware or installable iOS app.
