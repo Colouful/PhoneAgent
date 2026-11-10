@@ -1,0 +1,16 @@
+name: Agent Core
+on:
+  push:
+    paths: ['agent-core/**', 'schemas/**', '.github/workflows/agent-core.yml']
+  pull_request:
+    paths: ['agent-core/**', 'schemas/**', '.github/workflows/agent-core.yml']
+jobs:
+  swift-tests:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Swift package tests
+        working-directory: agent-core
+        run: swift test
+      - name: Validate schema JSON
+        run: python3 -m json.tool schemas/phone-action.schema.json > /dev/null
