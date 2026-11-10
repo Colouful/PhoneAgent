@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phoneagent.dev/schemas/phone-action-v1.json",
+  "title": "PhoneAgent Action",
+  "description": "Platform-neutral action proposal. The model proposes; the local policy validator decides whether it may execute.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "task_id", "action_id", "platform", "type"],
+  "properties": {
+    "version": { "const": 1 },
+    "task_id": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "action_id": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "platform": { "enum": ["ios", "android"] },
+    "type": {
+      "enum": ["tap", "long_press", "swipe", "scroll", "type_text", "press_back", "press_home", "wait", "finish", "request_user_confirmation"]
+    },
+    "coordinates": {
+      "type": "object", "additionalProperties": false, "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "end_coordinates": {
+      "type": "object", "additionalProperties": false, "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "text": { "type": "string", "maxLength": 500 },
+    "duration_ms": { "type": "integer", "minimum": 50, "maximum": 10000 },
+    "timeout_ms": { "type": "integer", "minimum": 100, "maximum": 30000 },
+    "reason": { "type": "string", "maxLength": 500 },
+    "expected_result": { "type": "string", "maxLength": 500 },
+    "risk": { "enum": ["low", "medium", "high"] },
+    "requires_confirmation": { "type": "boolean" },
+    "delta_x": { "type": "integer", "minimum": -20, "maximum": 20 },
+    "delta_y": { "type": "integer", "minimum": -20, "maximum": 20 }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "type": { "enum": ["tap", "long_press"] } } },
+      "then": { "required": ["coordinates"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "swipe" } } },
+      "then": { "required": ["coordinates", "end_coordinates", "duration_ms"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "type_text" } } },
+      "then": { "required": ["text"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "long_press" } } },
+      "then": { "required": ["coordinates", "duration_ms"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "scroll" } } },
+      "then": { "required": ["delta_x", "delta_y"] }
+    }
+  ]
+}
