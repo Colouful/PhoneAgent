@@ -1,9 +1,21 @@
 name: Agent Core
 on:
   push:
-    paths: ['agent-core/**', 'schemas/**', '.github/workflows/agent-core.yml']
+    paths:
+      - 'agent-core/**'
+      - 'schemas/**'
+      - 'protocols/**'
+      - 'scripts/check-starter-kit.sh'
+      - '.github/workflows/agent-core.yml'
   pull_request:
-    paths: ['agent-core/**', 'schemas/**', '.github/workflows/agent-core.yml']
+    paths:
+      - 'agent-core/**'
+      - 'schemas/**'
+      - 'protocols/**'
+      - 'scripts/check-starter-kit.sh'
+      - '.github/workflows/agent-core.yml'
+  workflow_dispatch:
+
 jobs:
   swift-tests:
     runs-on: macos-latest
@@ -14,3 +26,20 @@ jobs:
         run: swift test
       - name: Validate schema JSON
         run: python3 -m json.tool schemas/phone-action.schema.json > /dev/null
+      - name: Check helper script syntax
+        run: bash -n scripts/check-starter-kit.sh scripts/publish-to-github.sh
+      - name: Check BLE contract structure
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          text = Path("protocols/ble-gatt.yaml").read_text()
+          required = [
+              "uuid: 6e400001-a9e8-4b1b-9c39-6d6f8a3c0000",
+              "name: cmd", "name: reply", "name: status",
+              "name: video", "name: net",
+          ]
+          missing = [item for item in required if item not in text]
+          if missing:
+              raise SystemExit(f"Missing BLE contract items: {missing}")
+          print("BLE contract structure: OK")
+          PY
