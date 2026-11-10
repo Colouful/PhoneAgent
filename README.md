@@ -1,5 +1,8 @@
 # PhoneAgent — iPhone-first AI Phone Controller
 
+[![Agent Core CI](https://github.com/Colouful/PhoneAgent/actions/workflows/agent-core.yml/badge.svg)](https://github.com/Colouful/PhoneAgent/actions/workflows/agent-core.yml)
+
+
 > 状态：工程交接包已发布到 GitHub / M0 待执行。不是已完成的手机控制产品；真实硬件、Xcode 签名、AirPlay 和端到端 Agent 验收必须在设备上完成。
 
 - **GitHub 仓库**：https://github.com/Colouful/PhoneAgent
