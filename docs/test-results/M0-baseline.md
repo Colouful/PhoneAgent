@@ -34,6 +34,19 @@
 
 注：日志文件只有 210 字节、两行用量摘要，这是 arduino-cli 默认详细度下 `flash.sh --build-only` 成功时的全部 stdout，已如实保存；本仓库 `.gitignore:16` 有 `*.log` 规则，本次用 `git add -f` 把该日志加入 PR，以便评审直接看到原文。另：本次 VM 编译中途 `core update-index` 曾因出口网络 TLS 失败，修复方式是给 arduino-cli 配了本机出口代理（`~/.arduino15/arduino-cli.yaml`，无凭证）并用出口 CA 证书；这是本机环境配置，不在仓库内，Mac 上一般直连即可。
 
+## Firmware build on Mac (same pinned versions, 2026-11-10 17:39 CST)
+| Field | Value |
+|---|---|
+| Mac upstream clone | `/Users/admin/esp32-iphone-agent`，detached HEAD 已固定 `92b472fe0d46e0e8802c67915d20b236d145ab0e`，`git status` 干净 |
+| Mac arduino-cli / XcodeGen | arduino-cli 1.5.1（Commit 01f3d4f2b），XcodeGen 2.46.0 |
+| Mac ESP32 Core / NimBLE | Core **3.3.12**，NimBLE-Arduino **2.5.1**（脚本运行时均显示 already installed；`core list` / `lib list` 已核对） |
+| Mac build command | `hardware/flash.sh --build-only`（仅编译，未烧录） |
+| Mac build log | Mac 本地 `/Users/admin/phoneagent-mac-setup.log`（47 行，全程已读回核对）；本仓库保存的 Linux 日志见上表 |
+| Mac Flash / RAM usage | **Flash：1,502,583 bytes（44%），上限 3,342,336 bytes；RAM：117,316 bytes（35%），上限 327,680 bytes，剩余 210,364 bytes** |
+| Mac build result | **PASS（仅编译）** — `PHONEAGENT_MAC_SETUP_DONE exit=0` |
+
+注：Mac 的 Flash 用量比 Linux VM（1,502,407 bytes）大 176 bytes，RAM 完全相同；差异来自构建路径，属于正常波动，不影响结论。Mac 侧 Core/NimBLE 在脚本运行前已装好（非本次脚本新装），版本以 `core list` / `lib list` 实测为准。
+
 ## Acceptance checklist
 | ID | Check | Status | Evidence |
 |---|---|---|---|

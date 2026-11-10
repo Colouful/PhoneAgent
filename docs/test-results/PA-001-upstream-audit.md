@@ -95,4 +95,5 @@
 - 日志：`docs/test-results/logs/upstream-build-2026-11-10.log`（210 字节，两行摘要原文；已 `git add -f` 加入本 PR）。
 - 编译前上游 `git status` 干净、编译后仍干净，HEAD 未变；本轮未改上游源码。
 - 中途真实故障：首次 `core update-index` 因本机出口网络 TLS 失败（`tls: first record does not look like a TLS handshake`），原因是 arduino-cli 不读环境变量代理，需写 `~/.arduino15/arduino-cli.yaml` 配出口代理并用出口 CA 证书；修复后 core 安装约 9.5 分钟、lib 安装约 4 秒。这是本机环境问题，Mac 上一般直连即可。
+- **Mac 侧编译（2026-11-10 17:39 CST，同样 PASS）：** 上游已克隆到 Mac `/Users/admin/esp32-iphone-agent`，detached HEAD 固定 `92b472f`；Core 3.3.12 与 NimBLE 2.5.1 在脚本运行前已装好，`core list` / `lib list` 核对无误；`hardware/flash.sh --build-only` exit 0，Flash 1,502,583 bytes（44%）、RAM 117,316 bytes（35%）。完整 47 行日志已从 Mac 的 `/Users/admin/phoneagent-mac-setup.log` 读回核对。Mac Flash 比 Linux VM 大 176 bytes（构建路径差异），RAM 相同。
 - 在编译 PASS + 真机 BLOCKED 解除之前，**不进入 M1**。编译成功不等于 M0 验收通过。

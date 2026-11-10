@@ -16,17 +16,15 @@
 ## 2. Xcode + XcodeGen
 
 - App Store 安装 Xcode（很大，先下着）。上游提到 Xcode 26.3 / 27 可构建，不要求最新，但要记录实际版本。
-- 装好后：
-
-```bash
-brew install xcodegen
-xcodegen --version
-```
+- XcodeGen 已装好（2.46.0，见 §1），不要再跑 `brew install xcodegen`——本机没有 Homebrew。
 
 ## 3. Arduino 工具链（固件用，和我这边的 Linux 编译同一套版本）
 
+- [x] 2026-11-10 17:39 已确认：ESP32 Core **3.3.12**、NimBLE-Arduino **2.5.1**（`core list` / `lib list` 核对；脚本运行时均显示 already installed，即运行前已装好）。
+
+arduino-cli 已装好（1.5.1，见 §1），不要再跑 `brew install arduino-cli`——本机没有 Homebrew。直接装 Core 和库：
+
 ```bash
-brew install arduino-cli
 arduino-cli core update-index --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
 arduino-cli core install esp32:esp32@3.3.12 --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
 arduino-cli lib install "NimBLE-Arduino@2.5.1"
@@ -35,6 +33,8 @@ arduino-cli lib list
 ```
 
 ## 4. 上游克隆 + 只编译不烧录（板子没到也能验证工具链）
+
+- [x] 2026-11-10 17:39 已完成：上游克隆到 Mac `/Users/admin/esp32-iphone-agent`，detached HEAD 固定 `92b472fe0d46e0e8802c67915d20b236d145ab0e`；`hardware/flash.sh --build-only` **PASS，exit 0**，Flash 1,502,583 bytes（44%）、RAM 117,316 bytes（35%）。完整日志在 Mac `/Users/admin/phoneagent-mac-setup.log`，已读回核对并记入 M0-baseline。
 
 ```bash
 git clone https://github.com/onehumanbeing/esp32-iphone-agent.git
