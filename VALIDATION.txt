@@ -26,3 +26,8 @@ Not tested:
 - GitHub Actions run completion (must be checked in Actions after push).
 
 This repository is an engineering handoff scaffold, not a complete flashable firmware or installable iOS app.
+
+Latest GitHub Actions validation:
+- Workflow run #9 on commit 66954589887d3aff4bb0827720e748a246754f9e completed successfully.
+- Swift Package tests, JSON Schema parsing, shell syntax and BLE contract structure checks passed.
+- Run URL: https://github.com/Colouful/PhoneAgent/actions/runs/42768588333
